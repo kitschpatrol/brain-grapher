@@ -1,10 +1,10 @@
-// Main controller / model file for the the Processing Brain Grapher.
+// Main controller / model file for Brain Grapher.
 
-// See README.markdown for more info.
-// See http://frontiernerds.com/brain-hack for a tutorial on getting started with the Arduino Brain Library and this Processing Brain Grapher.
+// See ../readme.md for more info.
+// See https://frontiernerds.com/brain-hack for a tutorial on getting started with the Arduino Brain Library and Brain Grapher.
 
-// Latest source code is on https://github.com/kitschpatrol/Processing-Brain-Grapher
-// Created by Eric Mika in Fall 2010, updates Spring 2012, early 2014, and Spring 2016.
+// Latest source code is on https://github.com/kitschpatrol/brain-grapher
+// Created by Eric Mika in Spring 2010, updates Spring 2012, early 2014, and Spring 2016.
 
 import processing.serial.*;
 import controlP5.*;
@@ -117,7 +117,7 @@ void draw() {
 
 void serialEvent(Serial p) {
   // Split incoming packet on commas
-  // See https://github.com/kitschpatrol/Arduino-Brain-Library/blob/master/README for information on the CSV packet format
+  // See https://github.com/kitschpatrol/brain#overview for information on the CSV packet format
   
   String incomingString = p.readString().trim();
   print("Received string over serial: ");

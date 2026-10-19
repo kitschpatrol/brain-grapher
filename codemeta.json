@@ -1,0 +1,56 @@
+{
+  "@context": "https://w3id.org/codemeta/3.1",
+  "@type": "SoftwareSourceCode",
+  "author": {
+    "@type": "Person",
+    "email": "eric@ericmika.com",
+    "name": "Eric Mika",
+    "url": "https://ericmika.com"
+  },
+  "codeRepository": "https://github.com/kitschpatrol/brain-grapher",
+  "description": "Processing-based visualizer for NeuroSky EEG brainwave data output from the Arduino Brain library.",
+  "issueTracker": "https://github.com/kitschpatrol/brain-grapher/issues",
+  "keywords": [
+    "arduino",
+    "brain",
+    "eeg",
+    "mindflex",
+    "neurosky",
+    "processing",
+    "visualizer"
+  ],
+  "license": "https://spdx.org/licenses/MIT",
+  "maintainer": {
+    "@type": "Person",
+    "email": "eric@ericmika.com",
+    "name": "Eric Mika",
+    "url": "https://ericmika.com"
+  },
+  "name": "Brain Grapher",
+  "programmingLanguage": ["Processing", "Java"],
+  "readme": "https://github.com/kitschpatrol/brain-grapher/blob/HEAD/readme.md",
+  "runtimePlatform": "Processing",
+  "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Processing",
+      "url": "https://processing.org/",
+      "version": ">=3.0.0"
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "ControlP5",
+      "url": "https://github.com/sojamo/controlp5",
+      "version": "^2.2.5"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "Brain",
+      "url": "https://github.com/kitschpatrol/brain"
+    }
+  ],
+  "url": "https://frontiernerds.com/brain-hack",
+  "version": "1.1"
+}

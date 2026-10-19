@@ -1,40 +1,79 @@
-## Processing Brain Grapher
+<!-- title -->
 
-#### Overview
+# Brain Grapher
 
-<img width="500" src="screenshot.jpg" />
+<!-- /title -->
 
-This is a simple Processing application for graphing changes in brain waves over time. It's designed to read data from a hacked MindFlex EEG headset connected via USB.
+<!-- badges -->
 
-It's mostly a proof of concept, demonstrating how to parse serial packets from the Arduino Brain Library, monitor signal strength, etc.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit)
 
-`BrainGrapher.pde` is the main project file. Open this in the Processing PDE to work with the project.
+<!-- /badges -->
 
-You may need to modfiy the index value in the line `serial = new Serial(this, Serial.list()[0], 9600);` inside the app's `setup()` function file depending on which serial / USB port your Arduino is connected to. (Try ` Serial.list()[1]`, ` Serial.list()[2]`, ` Serial.list()[3]`, etc.)
+<!-- description -->
 
-#### Repository Rename
+**Processing-based visualizer for NeuroSky EEG brainwave data output from the Arduino Brain library.**
 
-This project was formerly “Processing-Brain-Grapher” on GitHub, but was renamed to just “BrainGrapher” in 2014 for simplicity's sake.
+<!-- /description -->
 
-#### Dependencies
+## Overview
 
-- The core Processing project. Tested with [Processing 3.0.2](http://processing.org/download/).
+<img width="500" src="screenshot.jpg" alt="Brain Grapher showing EEG waveforms and channel monitors" />
 
-- Version 2.2.5 of the [ControlP5 GUI Library](http://www.sojamo.de/libraries/controlP5/) is included with this project in the `/code` folder. No installation is necessary.
+Brain Grapher is a proof of concept for visualizing brainwave data over time. It reads comma-separated serial packets from an Arduino connected to a hacked MindFlex EEG headset, then displays signal quality, attention, meditation, and eight EEG power bands.
 
-- If you're using this with a hacked MindFlex, you'll need the [Arduino Brain Library](https://github.com/kitschpatrol/Brain) installed and running on your Arduino. Additional instructions at [frontiernerds.com/brain-hack](https://www.frontiernerds.com/brain-hack).
+The interface provides per-channel graph toggles, four rendering modes, local or global scaling, a time-scale slider, and a connection-quality indicator.
 
-#### License
+## Getting started
 
-MIT
+### Dependencies
 
-#### Colophon
+- [Processing](https://processing.org/download/), historically tested with version 3.0.2. Compatibility with newer versions has not been verified.
+- [ControlP5 GUI Library](https://github.com/sojamo/controlp5) 2.2.5 is included with this project in the `/code` folder. No separate installation is needed.
+- An Arduino connected over USB and a compatible EEG headset. The [Arduino Brain library](https://github.com/kitschpatrol/brain) provides the expected serial output, and the [hardware tutorial](https://frontiernerds.com/brain-hack) explains the MindFlex setup.
 
-Created by Eric Mika at NYU ITP in the spring of 2010. Revised in Spring 2012 to keep up with Processing and ControlP5 updates. Updated in early 2014 with bundled dependencies and more fixes for Control P5. Update in Spring 2016 with Processing 3 support.
+### Installation
 
-#### Contact
+1. Install the Arduino Brain library and upload its [BrainSerialTest example](https://github.com/kitschpatrol/brain/tree/main/examples/BrainSerialTest) to your Arduino.
+2. Download or clone [this repository](https://github.com/kitschpatrol/brain-grapher).
+3. Open [BrainGrapher/BrainGrapher.pde](BrainGrapher/BrainGrapher.pde) in the Processing editor. Keep the other `.pde` files and the `code` folder together inside `BrainGrapher`.
 
-Eric Mika  
-eric@ericmika.com  
-[https://github.com/kitschpatrol](https://github.com/kitschpatrol)  
-[https://frontiernerds.com](http://frontiernerds.com)
+## Usage
+
+### Selecting a serial port
+
+The sketch prints the available serial ports and their indices in Processing's console when it starts. Find your Arduino in that list, then change the index in `setup()` to match:
+
+```java
+serial = new Serial(this, Serial.list()[0], 9600);
+```
+
+For example, use `Serial.list()[1]` for the port listed as `[1]`. Run the sketch again after changing the index. The Arduino must send data at **9600 baud**. Close other applications using that serial port, including the Arduino Serial Monitor.
+
+### Serial data format
+
+Each packet contains 11 comma-separated integers in this order, followed by a newline:
+
+```text
+signal quality,attention,meditation,delta,theta,low alpha,high alpha,low beta,high beta,low gamma,high gamma
+```
+
+Signal quality ranges from 0 (good signal) to 200 (no signal). Attention and meditation range from 0 to 100. The remaining eight values represent EEG power bands.
+
+The sketch skips the first three packets to avoid initialization noise. When signal quality is 200, it zeros the eight EEG power values.
+
+## Background
+
+Created by Eric Mika at NYU ITP in spring 2010. Revised in spring 2012 for Processing and ControlP5 updates, in early 2014 to bundle dependencies and update ControlP5, and in spring 2016 to support Processing 3 and ControlP5 2.2.5.
+
+The repository was originally named `Processing-Brain-Grapher`, became `BrainGrapher` in 2014, and is now hosted at [`kitschpatrol/brain-grapher`](https://github.com/kitschpatrol/brain-grapher).
+
+<!-- license -->
+
+## License
+
+[MIT](license.txt) © [Eric Mika](https://ericmika.com)
+
+<!-- /license -->
+
+The bundled ControlP5 library is covered by its [own license](https://github.com/sojamo/controlp5/blob/master/LICENSE.md).
